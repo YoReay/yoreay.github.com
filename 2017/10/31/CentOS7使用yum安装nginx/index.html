@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="java," />
+  <meta name="keywords" content="CentOS7,yum,Linux,nginx," />
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="Java运行时数据区域主要由5块组成   程序计数器 虚拟机栈 本地方法栈 堆 方法区   程序计数器  占用内空间较小，可以看作是当前线程所执行的字节码的行号指示器。每个线程都有一个独立的程序计数器，所以程序计数器是线程私有的。  Java虚拟机栈  Java虚拟机栈是线程私有的，它的生命周期和线程相同。基本数据类型">
-<meta name="keywords" content="java">
+<meta name="description" content="添加nginx到yum源  1sudo rpm -Uvh http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.rpm  安装nginx  1sudo yum install -y nginx  启动nginx  1sudo systemctl start nginx.serv">
+<meta name="keywords" content="CentOS7,yum,Linux,nginx">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Java运行时数据区域">
-<meta property="og:url" content="http://yoreay.github.com/2017/10/30/Java运行时数据区域/index.html">
+<meta property="og:title" content="CentOS7使用yum安装nginx">
+<meta property="og:url" content="http://yoreay.github.com/2017/10/31/CentOS7使用yum安装nginx/index.html">
 <meta property="og:site_name" content="YoReay&#39;s blog">
-<meta property="og:description" content="Java运行时数据区域主要由5块组成   程序计数器 虚拟机栈 本地方法栈 堆 方法区   程序计数器  占用内空间较小，可以看作是当前线程所执行的字节码的行号指示器。每个线程都有一个独立的程序计数器，所以程序计数器是线程私有的。  Java虚拟机栈  Java虚拟机栈是线程私有的，它的生命周期和线程相同。基本数据类型">
+<meta property="og:description" content="添加nginx到yum源  1sudo rpm -Uvh http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.rpm  安装nginx  1sudo yum install -y nginx  启动nginx  1sudo systemctl start nginx.serv">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-10-31T01:46:37.227Z">
+<meta property="og:updated_time" content="2017-10-31T06:06:32.242Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Java运行时数据区域">
-<meta name="twitter:description" content="Java运行时数据区域主要由5块组成   程序计数器 虚拟机栈 本地方法栈 堆 方法区   程序计数器  占用内空间较小，可以看作是当前线程所执行的字节码的行号指示器。每个线程都有一个独立的程序计数器，所以程序计数器是线程私有的。  Java虚拟机栈  Java虚拟机栈是线程私有的，它的生命周期和线程相同。基本数据类型">
+<meta name="twitter:title" content="CentOS7使用yum安装nginx">
+<meta name="twitter:description" content="添加nginx到yum源  1sudo rpm -Uvh http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.rpm  安装nginx  1sudo yum install -y nginx  启动nginx  1sudo systemctl start nginx.serv">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoreay.github.com/2017/10/30/Java运行时数据区域/"/>
+  <link rel="canonical" href="http://yoreay.github.com/2017/10/31/CentOS7使用yum安装nginx/"/>
 
 
 
 
 
-  <title>Java运行时数据区域 | YoReay's blog</title>
+  <title>CentOS7使用yum安装nginx | YoReay's blog</title>
   
 
 
@@ -253,7 +253,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoreay.github.com/2017/10/30/Java运行时数据区域/">
+    <link itemprop="mainEntityOfPage" href="http://yoreay.github.com/2017/10/31/CentOS7使用yum安装nginx/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="YoReay">
@@ -270,7 +270,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Java运行时数据区域</h1>
+          <h1 class="post-title" itemprop="name headline">CentOS7使用yum安装nginx</h1>
         
 
         <div class="post-meta">
@@ -282,8 +282,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-30T11:50:19+08:00">
-                2017-10-30
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-31T14:00:00+08:00">
+                2017-10-31
               </time>
             
 
@@ -298,7 +298,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2017-10-31T09:46:37+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2017-10-31T14:06:32+08:00">
                 2017-10-31
               </time>
             
@@ -355,23 +355,30 @@
 
       
         <blockquote>
-<p>Java运行时数据区域主要由5块组成</p>
+<p>添加nginx到yum源</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo rpm -Uvh http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.rpm</div></pre></td></tr></table></figure>
+<blockquote>
+<p>安装nginx</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo yum install -y nginx</div></pre></td></tr></table></figure>
+<blockquote>
+<p>启动nginx</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo systemctl start nginx.service</div></pre></td></tr></table></figure>
+<blockquote>
+<p>设置开机启动</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo systemctl enable nginx.service</div></pre></td></tr></table></figure>
+<blockquote>
+<p>nginx配置信息</p>
 </blockquote>
 <ul>
-<li>程序计数器</li>
-<li>虚拟机栈</li>
-<li>本地方法栈</li>
-<li>堆</li>
-<li>方法区</li>
+<li>网站文件存放默认目录：<code>/user/share/nginx/html</code></li>
+<li>网站默认站点配置：<code>/etc/nginx/conf.d/default.conf</code></li>
+<li>自定义nginx站点配置文件存放目录：<code>/etc/nginx/conf.d</code></li>
+<li>nginx全局配置：<code>/etc/nginx/nginx.conf</code></li>
 </ul>
-<blockquote>
-<p>程序计数器</p>
-</blockquote>
-<p>占用内空间较小，可以看作是当前线程所执行的字节码的行号指示器。<br>每个线程都有一个独立的程序计数器，所以程序计数器是线程私有的。</p>
-<blockquote>
-<p>Java虚拟机栈</p>
-</blockquote>
-<p>Java虚拟机栈是线程私有的，它的生命周期和线程相同。<br>基本数据类型</p>
 
       
     </div>
@@ -389,7 +396,13 @@
       
         <div class="post-tags">
           
-            <a href="/tags/java/" rel="tag"># java</a>
+            <a href="/tags/CentOS7/" rel="tag"># CentOS7</a>
+          
+            <a href="/tags/yum/" rel="tag"># yum</a>
+          
+            <a href="/tags/Linux/" rel="tag"># Linux</a>
+          
+            <a href="/tags/nginx/" rel="tag"># nginx</a>
           
         </div>
       
@@ -402,8 +415,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/10/30/hello-world/" rel="next" title="Hello World">
-                <i class="fa fa-chevron-left"></i> Hello World
+              <a href="/2017/10/31/CentOS7搭建Git服务器/" rel="next" title="CentOS7搭建Git服务器">
+                <i class="fa fa-chevron-left"></i> CentOS7搭建Git服务器
               </a>
             
           </div>
@@ -411,10 +424,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/10/31/CentOS7搭建Git服务器/" rel="prev" title="CentOS7搭建Git服务器">
-                CentOS7搭建Git服务器 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
