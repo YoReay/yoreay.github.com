@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="Java NIO(New IO)是Java(1.4之后) IO API的替代品，意味着可以代替标准的Java IO和Java Networking API。Java NIO提供了与标准IO API不同的IO工作方式。 Java NIO: 通道和缓冲区在标准IO API中，你可以使用字节流和字符流。在NIO中，你可以使用通道和缓冲区。数据总是从通道读入缓冲区，或者从缓冲区写入通道。. Java NI">
+<meta name="description" content="本教程翻译自：http://tutorials.jenkov.com/java-nio/index.html Java NIO(New IO)是Java(1.4之后) IO API的替代品，意味着可以代替标准的Java IO和Java Networking API。Java NIO提供了与标准IO API不同的IO工作方式。 Java NIO: Channels和Buffers （通道和缓冲区）在">
 <meta name="keywords" content="java,NIO">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java NIO 教程">
 <meta property="og:url" content="http://yoreay.github.com/2017/11/28/Java-NIO-教程/index.html">
 <meta property="og:site_name" content="YoReay&#39;s blog">
-<meta property="og:description" content="Java NIO(New IO)是Java(1.4之后) IO API的替代品，意味着可以代替标准的Java IO和Java Networking API。Java NIO提供了与标准IO API不同的IO工作方式。 Java NIO: 通道和缓冲区在标准IO API中，你可以使用字节流和字符流。在NIO中，你可以使用通道和缓冲区。数据总是从通道读入缓冲区，或者从缓冲区写入通道。. Java NI">
+<meta property="og:description" content="本教程翻译自：http://tutorials.jenkov.com/java-nio/index.html Java NIO(New IO)是Java(1.4之后) IO API的替代品，意味着可以代替标准的Java IO和Java Networking API。Java NIO提供了与标准IO API不同的IO工作方式。 Java NIO: Channels和Buffers （通道和缓冲区）在">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-11-28T04:20:11.668Z">
+<meta property="og:updated_time" content="2017-11-28T04:32:33.719Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java NIO 教程">
-<meta name="twitter:description" content="Java NIO(New IO)是Java(1.4之后) IO API的替代品，意味着可以代替标准的Java IO和Java Networking API。Java NIO提供了与标准IO API不同的IO工作方式。 Java NIO: 通道和缓冲区在标准IO API中，你可以使用字节流和字符流。在NIO中，你可以使用通道和缓冲区。数据总是从通道读入缓冲区，或者从缓冲区写入通道。. Java NI">
+<meta name="twitter:description" content="本教程翻译自：http://tutorials.jenkov.com/java-nio/index.html Java NIO(New IO)是Java(1.4之后) IO API的替代品，意味着可以代替标准的Java IO和Java Networking API。Java NIO提供了与标准IO API不同的IO工作方式。 Java NIO: Channels和Buffers （通道和缓冲区）在">
 
 
 
@@ -298,7 +298,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2017-11-28T12:20:11+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2017-11-28T12:32:33+08:00">
                 2017-11-28
               </time>
             
@@ -354,10 +354,11 @@
       
 
       
-        <p>Java NIO(New IO)是Java(1.4之后) IO API的替代品，意味着可以代替标准的Java IO和Java Networking API。<br>Java NIO提供了与标准IO API不同的IO工作方式。</p>
-<h2 id="Java-NIO-通道和缓冲区"><a href="#Java-NIO-通道和缓冲区" class="headerlink" title="Java NIO: 通道和缓冲区"></a>Java NIO: 通道和缓冲区</h2><p>在标准IO API中，你可以使用字节流和字符流。<br>在NIO中，你可以使用通道和缓冲区。<br>数据总是从通道读入缓冲区，或者从缓冲区写入通道。.</p>
-<h2 id="Java-NIO-非阻塞IO"><a href="#Java-NIO-非阻塞IO" class="headerlink" title="Java NIO: 非阻塞IO"></a>Java NIO: 非阻塞IO</h2><p>Java NIO 使你可以执行非阻塞IO。<br>例如, 线程可以要求通道将数据读入缓冲区。<br>当通道将数据读入缓冲区时，线程可以做其他的事情。<br>一旦数据读入缓冲区后，线程就可以继续处理它了。<br>将数据写入通道也是如此。</p>
-<h2 id="Java-NIO-选择器"><a href="#Java-NIO-选择器" class="headerlink" title="Java NIO: 选择器"></a>Java NIO: 选择器</h2><p>Java NIO 有“选择器”的概念。<br>选择器是一个可以监视多个通道事件的对象 (例如: 连接打开、数据到达等)。<br>因此, 单个线程可以监视多个通道的数据。</p>
+        <p>本教程翻译自：<a href="http://tutorials.jenkov.com/java-nio/index.html" target="_blank" rel="external">http://tutorials.jenkov.com/java-nio/index.html</a></p>
+<p>Java NIO(New IO)是Java(1.4之后) IO API的替代品，意味着可以代替标准的Java IO和Java Networking API。<br>Java NIO提供了与标准IO API不同的IO工作方式。</p>
+<h2 id="Java-NIO-Channels和Buffers-（通道和缓冲区）"><a href="#Java-NIO-Channels和Buffers-（通道和缓冲区）" class="headerlink" title="Java NIO: Channels和Buffers （通道和缓冲区）"></a>Java NIO: Channels和Buffers （通道和缓冲区）</h2><p>在标准IO API中，你可以使用字节流和字符流。<br>在NIO中，你可以使用通道和缓冲区。<br>数据总是从通道读入缓冲区，或者从缓冲区写入通道。.</p>
+<h2 id="Java-NIO-Non-blocking-IO-非阻塞IO"><a href="#Java-NIO-Non-blocking-IO-非阻塞IO" class="headerlink" title="Java NIO: Non-blocking IO (非阻塞IO)"></a>Java NIO: Non-blocking IO (非阻塞IO)</h2><p>Java NIO 使你可以执行非阻塞IO。<br>例如, 线程可以要求通道将数据读入缓冲区。<br>当通道将数据读入缓冲区时，线程可以做其他的事情。<br>一旦数据读入缓冲区后，线程就可以继续处理它了。<br>将数据写入通道也是如此。</p>
+<h2 id="Java-NIO-Selectors-（选择器）"><a href="#Java-NIO-Selectors-（选择器）" class="headerlink" title="Java NIO: Selectors （选择器）"></a>Java NIO: Selectors （选择器）</h2><p>Java NIO 有“Selectors”的概念。<br>选择器是一个可以监视多个通道事件的对象 (例如: 连接打开、数据到达等)。<br>因此, 单个线程可以监视多个通道的数据。</p>
 <p>在本系列的下一篇文章–Java NIO 概述中会更详细地解释所有这些是如何工作的。</p>
 
       
@@ -555,7 +556,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Java-NIO-通道和缓冲区"><span class="nav-number">1.</span> <span class="nav-text">Java NIO: 通道和缓冲区</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java-NIO-非阻塞IO"><span class="nav-number">2.</span> <span class="nav-text">Java NIO: 非阻塞IO</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java-NIO-选择器"><span class="nav-number">3.</span> <span class="nav-text">Java NIO: 选择器</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Java-NIO-Channels和Buffers-（通道和缓冲区）"><span class="nav-number">1.</span> <span class="nav-text">Java NIO: Channels和Buffers （通道和缓冲区）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java-NIO-Non-blocking-IO-非阻塞IO"><span class="nav-number">2.</span> <span class="nav-text">Java NIO: Non-blocking IO (非阻塞IO)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java-NIO-Selectors-（选择器）"><span class="nav-number">3.</span> <span class="nav-text">Java NIO: Selectors （选择器）</span></a></li></ol></div>
             
 
           </div>
