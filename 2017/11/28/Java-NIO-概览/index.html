@@ -87,12 +87,13 @@
 <meta property="og:site_name" content="YoReay&#39;s blog">
 <meta property="og:description" content="Java NIO 由以下核心组件组成:  Channels Buffers Selectors  Java NIO有很多类和组件，但在我看来，Channel(通道)，Buffer(缓冲区)和Selector(选择器)是API的核心。其余的组件，如Pipe和FileLock只是实用程序类，要与三个核心组件结合使用。因此，我们着重关注这三个组件。 Channels和Buffers通常，NIO中所有IO">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoreay.github.com/2017/11/28/overview-channels-buffers.png">
-<meta property="og:updated_time" content="2017-11-28T05:29:45.113Z">
+<meta property="og:image" content="http://yoreay.github.com/uploads/overview-channels-buffers.png">
+<meta property="og:image" content="http://yoreay.github.com/uploads/overview-selectors.png">
+<meta property="og:updated_time" content="2017-11-28T06:16:30.830Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java NIO 概览">
 <meta name="twitter:description" content="Java NIO 由以下核心组件组成:  Channels Buffers Selectors  Java NIO有很多类和组件，但在我看来，Channel(通道)，Buffer(缓冲区)和Selector(选择器)是API的核心。其余的组件，如Pipe和FileLock只是实用程序类，要与三个核心组件结合使用。因此，我们着重关注这三个组件。 Channels和Buffers通常，NIO中所有IO">
-<meta name="twitter:image" content="http://yoreay.github.com/2017/11/28/overview-channels-buffers.png">
+<meta name="twitter:image" content="http://yoreay.github.com/uploads/overview-channels-buffers.png">
 
 
 
@@ -300,7 +301,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2017-11-28T13:29:45+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2017-11-28T14:16:30+08:00">
                 2017-11-28
               </time>
             
@@ -363,7 +364,32 @@
 <li>Selectors</li>
 </ul>
 <p>Java NIO有很多类和组件，但在我看来，Channel(通道)，Buffer(缓冲区)和Selector(选择器)是API的核心。其余的组件，如Pipe和FileLock只是实用程序类，要与三个核心组件结合使用。因此，我们着重关注这三个组件。</p>
-<h2 id="Channels和Buffers"><a href="#Channels和Buffers" class="headerlink" title="Channels和Buffers"></a>Channels和Buffers</h2><p>通常，NIO中所有IO都是以一个Channel开始的。一个Channel有点像一个Stream。Channel中的数据能被写入Buffer中。数据也能从Buffer写入Channel中。<br>如下图：<img src="../overview-channels-buffers.png" alt="图1"></p>
+<h2 id="Channels和Buffers"><a href="#Channels和Buffers" class="headerlink" title="Channels和Buffers"></a>Channels和Buffers</h2><p>通常，NIO中所有IO都是以一个Channel开始的。一个Channel有点像一个Stream。Channel中的数据能被写入Buffer中。数据也能从Buffer写入Channel中。<br>如下图：<img src="/uploads/overview-channels-buffers.png" alt="channels-buffers"></p>
+<p>有很多Channel和Buffer类型。</p>
+<p>以下是一些主要的Channel实现类：</p>
+<ul>
+<li>FileChannel</li>
+<li>DatagramChannle</li>
+<li>SocketChannel</li>
+<li>ServerSocketChannel</li>
+</ul>
+<p>如你所见，这些Channel涵盖了UDP+TCP的网络IO和文件IO。</p>
+<p>这些类也有一些有趣的接口，但为了简单起见，我将把它们放在Java NIO概述之外。我们会在其他章节介绍它们。</p>
+<p>以下是核心的Buffer实现类：</p>
+<ul>
+<li>ByteBuffer</li>
+<li>CharBuffer</li>
+<li>DoubleBuffer</li>
+<li>FloatBuffer</li>
+<li>IntBuffer</li>
+<li>LongBuffer</li>
+<li>ShortBuffer</li>
+</ul>
+<p>这些Buffer包含了你能通过IO发送的基本数据类型：byte,short,int,long,float,double和characters。</p>
+<p>Java NIO也有一个与内存映射文件结合使用的MappedByteBuffer。</p>
+<h2 id="Selectors"><a href="#Selectors" class="headerlink" title="Selectors"></a>Selectors</h2><p>一个Selector允许单个线程处理多个通道。如果你的应用程序有多个连接(Channels)打开，但是每个连接只有较低的通信量，这样的话使用Selector是很方便的。比如一个聊天服务器。</p>
+<p>下图是一个Selector处理3个Channel的情形：<img src="/uploads/overview-selectors.png" alt="Selectors"></p>
+<p>要使用Selector，得向Selector注册Channel，然后调用它的select()方法。这个方法将会一直阻塞到某个注册得通道有事件就绪。一旦这个方法返回，线程就能够处理这些事件，例如新连接进入，数据接收等。</p>
 
       
     </div>
@@ -405,6 +431,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/11/28/Java-NIO-Channel/" rel="prev" title="Java NIO Channel">
+                Java NIO Channel <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -485,7 +515,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -556,7 +586,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Channels和Buffers"><span class="nav-number">1.</span> <span class="nav-text">Channels和Buffers</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Channels和Buffers"><span class="nav-number">1.</span> <span class="nav-text">Channels和Buffers</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Selectors"><span class="nav-number">2.</span> <span class="nav-text">Selectors</span></a></li></ol></div>
             
 
           </div>

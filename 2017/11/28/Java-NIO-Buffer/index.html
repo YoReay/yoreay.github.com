@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="java,NIO," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Java NIO中的Buffer用于与NIO中的Channel交互。如你所知，数据是从通道读入缓冲区，从缓冲区写入通道的。 缓冲区本质上是一块可以写入数据，然后可以从中读取数据的内存块。这个内存块被包装成一个NIO的Buffer对象，并提供了一个组方法来方便的访问该内存。 Buffer的基本用法使用Buffer读写数据一般遵循以下四个步骤：  将数据写入Buffer 调用buffer的flip()">
+<meta name="keywords" content="java,NIO">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java NIO Buffer">
+<meta property="og:url" content="http://yoreay.github.com/2017/11/28/Java-NIO-Buffer/index.html">
+<meta property="og:site_name" content="YoReay&#39;s blog">
+<meta property="og:description" content="Java NIO中的Buffer用于与NIO中的Channel交互。如你所知，数据是从通道读入缓冲区，从缓冲区写入通道的。 缓冲区本质上是一块可以写入数据，然后可以从中读取数据的内存块。这个内存块被包装成一个NIO的Buffer对象，并提供了一个组方法来方便的访问该内存。 Buffer的基本用法使用Buffer读写数据一般遵循以下四个步骤：  将数据写入Buffer 调用buffer的flip()">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoreay.github.com/uploads/buffers-modes.png">
+<meta property="og:updated_time" content="2017-11-28T10:03:02.767Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java NIO Buffer">
+<meta name="twitter:description" content="Java NIO中的Buffer用于与NIO中的Channel交互。如你所知，数据是从通道读入缓冲区，从缓冲区写入通道的。 缓冲区本质上是一块可以写入数据，然后可以从中读取数据的内存块。这个内存块被包装成一个NIO的Buffer对象，并提供了一个组方法来方便的访问该内存。 Buffer的基本用法使用Buffer读写数据一般遵循以下四个步骤：  将数据写入Buffer 调用buffer的flip()">
+<meta name="twitter:image" content="http://yoreay.github.com/uploads/buffers-modes.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoreay.github.com/2017/11/28/Java-NIO-Buffer/"/>
+
+
+
+
+
+  <title>Java NIO Buffer | YoReay's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">YoReay's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">不积跬步无以至千里<br/>不积小流无以成江海</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoreay.github.com/2017/11/28/Java-NIO-Buffer/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="YoReay">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/luffy.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YoReay's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Java NIO Buffer</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-28T14:36:14+08:00">
+                2017-11-28
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2017-11-28T18:03:02+08:00">
+                2017-11-28
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/后端/" itemprop="url" rel="index">
+                    <span itemprop="name">后端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Java NIO中的Buffer用于与NIO中的Channel交互。如你所知，数据是从通道读入缓冲区，从缓冲区写入通道的。</p>
+<p>缓冲区本质上是一块可以写入数据，然后可以从中读取数据的内存块。这个内存块被包装成一个NIO的Buffer对象，并提供了一个组方法来方便的访问该内存。</p>
+<h2 id="Buffer的基本用法"><a href="#Buffer的基本用法" class="headerlink" title="Buffer的基本用法"></a>Buffer的基本用法</h2><p>使用Buffer读写数据一般遵循以下四个步骤：</p>
+<ol>
+<li>将数据写入Buffer</li>
+<li>调用buffer的flip()方法</li>
+<li>从Buffer中读取数据</li>
+<li>调用buffer的clear()方法或者compact()方法。</li>
+</ol>
+<p>当向buffer写入数据时，buffer会记录写入了多少数据。一旦要读入数据，需要使用flip()方法将缓冲区从写入模式切换到读取模式。在读取模式下，可以读取之前写入buffer的所有数据。</p>
+<p>一旦读完了所有数据，就需要清空缓冲区，让它可以再次被写入。有两种方式可以清空缓冲区：调用clear()方法或者compact()方法。clear()方法会清空整个缓冲区。compact()方法只会清除读取过的数据。其余没有读取的数据会被移到缓冲区的起始处，新写入的数据将会放到这些未读数据的后面。</p>
+<p>下面是一个简单的，使用了Buffer的write,flip,read和clear方法的示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">RandomAccessFile aFile = new RandomAccessFile(&quot;data/nio-data.txt&quot;, &quot;rw&quot;);</div><div class="line">FileChannel inChannel = aFile.getChannel();</div><div class="line"></div><div class="line">//create buffer with capacity of 48 bytes</div><div class="line">ByteBuffer buf = ByteBuffer.allocate(48);</div><div class="line"></div><div class="line">int bytesRead = inChannel.read(buf); //read into buffer.</div><div class="line">while (bytesRead != -1) &#123;</div><div class="line"></div><div class="line">  buf.flip();  //make buffer ready for read</div><div class="line"></div><div class="line">  while(buf.hasRemaining())&#123;</div><div class="line">      System.out.print((char) buf.get()); // read 1 byte at a time</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  buf.clear(); //make buffer ready for writing</div><div class="line">  bytesRead = inChannel.read(buf);</div><div class="line">&#125;</div><div class="line">aFile.close();</div></pre></td></tr></table></figure>
+<h2 id="Buffer的Capacity-Position和Limit"><a href="#Buffer的Capacity-Position和Limit" class="headerlink" title="Buffer的Capacity,Position和Limit"></a>Buffer的Capacity,Position和Limit</h2><p>缓冲区本质上是一块可以写入数据，然后可以从中读取数据的内存块。这个内存块被包装成一个NIO的Buffer对象，并提供了一个组方法来方便的访问该内存。</p>
+<p>为了了解Buffer的工作原理，需要熟悉Buffer的3个属性：</p>
+<ul>
+<li>capacity</li>
+<li>position</li>
+<li>limit</li>
+</ul>
+<p>position和limit的含义取决于Buffer所处的是读模式还是写模式。而不管Buffer是什么模式，capacity的含义总是一样的。</p>
+<p>下图是capacity,position和limit的说明：<img src="/uploads/buffers-modes.png" alt="buffer-modes"></p>
+<h3 id="Capacity"><a href="#Capacity" class="headerlink" title="Capacity"></a>Capacity</h3><p>作为一个内存块，Buffer有一个固定的大小值，也叫”capacity”。你只能往Buffer里写入capacity个byte,long,char等类型。一旦Buffer满了，就需要先清空(读取数据或者清空)它，然后再写入数据。</p>
+<h3 id="Position"><a href="#Position" class="headerlink" title="Position"></a>Position</h3><p>当你写入数据到Buffer时，position代表一个确切的位置。position的初始值是0。当一个byte、long等数据写到Buffer后，position会向前移动到下一个可插入数据的Buffer单元。position的最大值为capacity - 1。</p>
+<p>当你从Buffer读取数据时，需要给定一个位置。当你将Buffer从写模式切换到读模式时，position也被重置为0。当从Buffer的position处读取数据时，position向前移动到下一个可读的位置。</p>
+<h3 id="Limit"><a href="#Limit" class="headerlink" title="Limit"></a>Limit</h3><p>在写模式下，Buffer的limit表示能写入Buffer的数据量。写模式下，limit等于Buffer的capacity。</p>
+<p>当切换为读模式时，limit表示能够读取的数据量。因此，当切换Buffer到读模式时，limit会被设置成写模式下的position值。换句话说，你能读到之前写入的所有数据（limit被设置成已写数据的数量，这个值在写模式下就是position）。</p>
+<h2 id="Buffer类型"><a href="#Buffer类型" class="headerlink" title="Buffer类型"></a>Buffer类型</h2><p>Java NIO有以下Buffer类型：</p>
+<ul>
+<li>ByteBuffer</li>
+<li>MappedByteBuffer</li>
+<li>CharBuffer</li>
+<li>DoubleBuffer</li>
+<li>FloatBuffer</li>
+<li>IntBuffer</li>
+<li>LongBuffer</li>
+<li>ShortBuffer</li>
+</ul>
+<p>如你所见，这些Buffer类型分别代表不同的数据类型。换句话说，就是可以通过char,short,int,long,float或double类型来操作缓冲区中的字节。</p>
+<p>MappedByteBuffer有点特别，在涉及的章节会细讲。</p>
+<h2 id="Buffer的分配"><a href="#Buffer的分配" class="headerlink" title="Buffer的分配"></a>Buffer的分配</h2><p>获取一个Buffer对象之前需要先进行分配。每一个Buffer类都有一个allocate()方法。<br>以下是一个分配了48字节的ByteBuffer：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ByteBuffer buf = ByteBuffer.allocate(48);</div></pre></td></tr></table></figure></p>
+<p>下面是一个可以存储1024个字符的CharBuffer：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">CharBuffer buf = CharBuffer.allocate(1024);</div></pre></td></tr></table></figure></p>
+<h2 id="写数据到Buffer"><a href="#写数据到Buffer" class="headerlink" title="写数据到Buffer"></a>写数据到Buffer</h2><p>有2种方式将数据写入到Buffer：</p>
+<ol>
+<li>从Channel写数据到Buffer</li>
+<li>通过Buffer的put()方法将数据写入Buffer。</li>
+</ol>
+<p>以下是从Channel写数据到Buffer的例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">int bytesRead = inChannel.read(buf); //read into buffer.</div></pre></td></tr></table></figure></p>
+<p>通过put()方法将数据写入Buffer：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">buf.put(127);</div></pre></td></tr></table></figure></p>
+<p>put()方法有很多版本，允许你用不同的方式将数据写入Buffer。例如， 写到一个指定的位置，或者把一个字节数组写入到Buffer。 更多Buffer实现的细节参考JavaDoc。</p>
+<h2 id="flip"><a href="#flip" class="headerlink" title="flip()"></a>flip()</h2><p>flip()方法能够将Buffer从写模式切换成读模式。调用flip()会将position重置为0，并将limit置为之前position的值。</p>
+<p>换句话说，就是position标记为读的位置，limit表示之前写进了多少个byte、char等 —— 现在能读取多少个byte、char等。</p>
+<h2 id="从Buffer中读取数据"><a href="#从Buffer中读取数据" class="headerlink" title="从Buffer中读取数据"></a>从Buffer中读取数据</h2><p>同样有2种方式从Buffer中读取数据：</p>
+<ol>
+<li>从Buffer中读数据到Channel</li>
+<li>通过get()方法读取数据</li>
+</ol>
+<p>第一种示例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">//read from buffer into channel.</div><div class="line">int bytesWritten = inChannel.write(buf);</div></pre></td></tr></table></figure></p>
+<p>第二种示例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">byte aByte = buf.get();</div></pre></td></tr></table></figure></p>
+<p>get()方法有很多版本，允许你以不同的方式从Buffer中读取数据。例如，从指定position读取，或者从Buffer中读取数据到字节数组。更多Buffer实现的细节参考JavaDoc。</p>
+<h2 id="rewind"><a href="#rewind" class="headerlink" title="rewind()"></a>rewind()</h2><p>Buffer.rewind()方法能够将position重置为0，这样就能够重新读取Buffer中的数据。limit保持不变，仍然表示能从Buffer中读取多少个元素（byte、char等）。</p>
+<h2 id="clear-和compact"><a href="#clear-和compact" class="headerlink" title="clear()和compact()"></a>clear()和compact()</h2><p>一旦读完了Buffer中的数据，需要让Buffer准备好再次写入。可以通过clear()或者compact()方法来实现。</p>
+<p>调用call()之后，position会被设回为0，limit设置成capacity的值。换句话说，就是Buffer被清空了。Buffer中的数据没有被清除，只是这些标记告诉我们可以从哪里开始往Buffer里写数据。</p>
+<p>如果Buffer中还有未读的数据，调用clear()之后，这些数据将会“被遗忘”，就是说不会再有任何标记告诉那些数据被度过，哪些还没有。</p>
+<p>如果Buffer中还是有未读的，而且后续还要用到这些数据，但此时要先写数据，这时可以使用compact()来代替clear()。</p>
+<p>compact()方法会将未读的数据复制到Buffer的起始处。然后将position设到最后一个未读元素正后面。limit还是和clear()那样，设置为capacity的值。现在Buffer能够写入数据了，而且不会覆盖之前未读的数据。</p>
+<h2 id="mark-和reset"><a href="#mark-和reset" class="headerlink" title="mark()和reset()"></a>mark()和reset()</h2><p>通过Buffer.mark()方法可以标记Buffer中的一个特定的位置。之后可以通过调用Buffer.reset()方法恢复到这个position。例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">buffer.mark();</div><div class="line"></div><div class="line">//call buffer.get() a couple of times, e.g. during parsing.</div><div class="line"></div><div class="line">buffer.reset();  //set position back to mark.</div></pre></td></tr></table></figure></p>
+<h2 id="equals-和compareTo"><a href="#equals-和compareTo" class="headerlink" title="equals()和compareTo()"></a>equals()和compareTo()</h2><p>可以使用equals()和compareTo()来比较2个Buffer。</p>
+<h3 id="equals"><a href="#equals" class="headerlink" title="equals()"></a>equals()</h3><p>两个buffer相等需要满足以下几点：</p>
+<ol>
+<li>它们是相同的类型。</li>
+<li>Buffer中剩余的byte,char等个数相等。</li>
+<li>所有剩余的byte,char等都是相等的。</li>
+</ol>
+<p>如你所见，equals只是比较Buffer的一部分，不是每一个在它里面的元素都比较。实际上，它只比较Buffer中的剩余元素。</p>
+<h3 id="compareTo"><a href="#compareTo" class="headerlink" title="compareTo()"></a>compareTo()</h3><p>compareTo()方法比较两个Buffer的剩余元素(byte、char等)， 如果满足下列条件，则认为一个Buffer“小于”另一个Buffer:</p>
+<ol>
+<li>第一个不相等的元素小于另一个Buffer中对应的元素。</li>
+<li>所有元素都相等，但第一个Buffer比另一个先耗尽(第一个Buffer的元素个数比另一个少)。</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/java/" rel="tag"># java</a>
+          
+            <a href="/tags/NIO/" rel="tag"># NIO</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/11/28/Java-NIO-Channel/" rel="next" title="Java NIO Channel">
+                <i class="fa fa-chevron-left"></i> Java NIO Channel
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/luffy.jpg"
+                alt="YoReay" />
+            
+              <p class="site-author-name" itemprop="name">YoReay</p>
+              <p class="site-description motion-element" itemprop="description">记录学习的点点滴滴</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/YoReay" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:Yr492107643@gmail.com" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Buffer的基本用法"><span class="nav-number">1.</span> <span class="nav-text">Buffer的基本用法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Buffer的Capacity-Position和Limit"><span class="nav-number">2.</span> <span class="nav-text">Buffer的Capacity,Position和Limit</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Capacity"><span class="nav-number">2.1.</span> <span class="nav-text">Capacity</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Position"><span class="nav-number">2.2.</span> <span class="nav-text">Position</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Limit"><span class="nav-number">2.3.</span> <span class="nav-text">Limit</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Buffer类型"><span class="nav-number">3.</span> <span class="nav-text">Buffer类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Buffer的分配"><span class="nav-number">4.</span> <span class="nav-text">Buffer的分配</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#写数据到Buffer"><span class="nav-number">5.</span> <span class="nav-text">写数据到Buffer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#flip"><span class="nav-number">6.</span> <span class="nav-text">flip()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#从Buffer中读取数据"><span class="nav-number">7.</span> <span class="nav-text">从Buffer中读取数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#rewind"><span class="nav-number">8.</span> <span class="nav-text">rewind()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#clear-和compact"><span class="nav-number">9.</span> <span class="nav-text">clear()和compact()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mark-和reset"><span class="nav-number">10.</span> <span class="nav-text">mark()和reset()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#equals-和compareTo"><span class="nav-number">11.</span> <span class="nav-text">equals()和compareTo()</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#equals"><span class="nav-number">11.1.</span> <span class="nav-text">equals()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#compareTo"><span class="nav-number">11.2.</span> <span class="nav-text">compareTo()</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">YoReay</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+  <script type="text/javascript" src="/js/src/exturl.js?v=5.1.3"></script>
+
+
+</body>
+</html>
