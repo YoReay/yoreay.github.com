@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="YoReay, java" />
+  <meta name="keywords" content="nginx," />
 
 
 
@@ -79,16 +79,18 @@
 
 
 
-<meta name="description" content="记录学习的点点滴滴">
-<meta property="og:type" content="website">
-<meta property="og:title" content="YoReay&#39;s blog">
-<meta property="og:url" content="http://yoreay.github.com/archives/2017/page/2/index.html">
+<meta name="description" content="nginx 按日期切割日志使用linux的logrotate这个了解过，但是还没有尝试过，以后测试过之后再来更新吧。不过感觉和自己写shell脚本，然后再弄一个定时器差不多。 使用nginx第三方模块这里我使用了一个set-misc-nginx-module第三方nginx模块，这个模块定义了一些变量可供使用。按日期切割日志肯定要用到日期，所以使用了这个模块的set_local_today变量。具">
+<meta name="keywords" content="nginx">
+<meta property="og:type" content="article">
+<meta property="og:title" content="nginx-按日期切割日志">
+<meta property="og:url" content="http://yoreay.github.com/2018/05/16/nginx-按日期切割日志/index.html">
 <meta property="og:site_name" content="YoReay&#39;s blog">
-<meta property="og:description" content="记录学习的点点滴滴">
+<meta property="og:description" content="nginx 按日期切割日志使用linux的logrotate这个了解过，但是还没有尝试过，以后测试过之后再来更新吧。不过感觉和自己写shell脚本，然后再弄一个定时器差不多。 使用nginx第三方模块这里我使用了一个set-misc-nginx-module第三方nginx模块，这个模块定义了一些变量可供使用。按日期切割日志肯定要用到日期，所以使用了这个模块的set_local_today变量。具">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-05-16T08:40:38.091Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="YoReay&#39;s blog">
-<meta name="twitter:description" content="记录学习的点点滴滴">
+<meta name="twitter:title" content="nginx-按日期切割日志">
+<meta name="twitter:description" content="nginx 按日期切割日志使用linux的logrotate这个了解过，但是还没有尝试过，以后测试过之后再来更新吧。不过感觉和自己写shell脚本，然后再弄一个定时器差不多。 使用nginx第三方模块这里我使用了一个set-misc-nginx-module第三方nginx模块，这个模块定义了一些变量可供使用。按日期切割日志肯定要用到日期，所以使用了这个模块的set_local_today变量。具">
 
 
 
@@ -118,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoreay.github.com/archives/2017/page/2/"/>
+  <link rel="canonical" href="http://yoreay.github.com/2018/05/16/nginx-按日期切割日志/"/>
 
 
 
 
 
-  <title>归档 | YoReay's blog</title>
+  <title>nginx-按日期切割日志 | YoReay's blog</title>
   
 
 
@@ -143,7 +145,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -237,189 +239,189 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
+  <div id="posts" class="posts-expand">
+    
 
-      <span class="archive-page-counter">
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoreay.github.com/2018/05/16/nginx-按日期切割日志/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="YoReay">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/luffy.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YoReay's blog">
+    </span>
+
+    
+      <header class="post-header">
+
         
         
+          <h1 class="post-title" itemprop="name headline">nginx-按日期切割日志</h1>
         
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-16T16:26:28+08:00">
+                2018-05-16
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-05-16T16:40:38+08:00">
+                2018-05-16
+              </time>
+            
+          </span>
+
           
-        
-        嗯..! 目前共计 16 篇日志。 继续努力。
-      </span>
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/后端/" itemprop="url" rel="index">
+                    <span itemprop="name">后端</span>
+                  </a>
+                </span>
 
-      
-
-        
-        
-        
-
-        
+                
+                
+              
+            </span>
           
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2017">2017</h1>
-          </div>
-        
-        
 
-        
+          
+            
+          
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+          
+          
 
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/11/06/Java-GC/" itemprop="url">
-              
-                <span itemprop="name">Java GC</span>
-              
-            </a>
-        
-      </h2>
+          
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-11-06T22:07:44+08:00"
-              content="2017-11-06" >
-          11-06
-        </time>
-      </div>
+          
 
-    </header>
-  </article>
+          
 
+        </div>
+      </header>
+    
 
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/10/31/CentOS7使用yum安装nginx/" itemprop="url">
-              
-                <span itemprop="name">CentOS7使用yum安装nginx</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-10-31T14:00:00+08:00"
-              content="2017-10-31" >
-          10-31
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
 
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/10/31/CentOS7搭建Git服务器/" itemprop="url">
-              
-                <span itemprop="name">CentOS7搭建Git服务器</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-10-31T13:17:10+08:00"
-              content="2017-10-31" >
-          10-31
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
+      
+        <h1 id="nginx-按日期切割日志"><a href="#nginx-按日期切割日志" class="headerlink" title="nginx 按日期切割日志"></a>nginx 按日期切割日志</h1><h2 id="使用linux的logrotate"><a href="#使用linux的logrotate" class="headerlink" title="使用linux的logrotate"></a>使用linux的logrotate</h2><p>这个了解过，但是还没有尝试过，以后测试过之后再来更新吧。<br>不过感觉和自己写shell脚本，然后再弄一个定时器差不多。</p>
+<h2 id="使用nginx第三方模块"><a href="#使用nginx第三方模块" class="headerlink" title="使用nginx第三方模块"></a>使用nginx第三方模块</h2><p>这里我使用了一个set-misc-nginx-module第三方nginx模块，这个模块定义了一些变量可供使用。<br>按日期切割日志肯定要用到日期，所以使用了这个模块的set_local_today变量。<br>具体配置如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">location /callback &#123;</div><div class="line">    set_local_today $today;</div><div class="line">    access_log logs/api-$today.log main;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="nginx安装第三方模块set-misc-nginx-module"><a href="#nginx安装第三方模块set-misc-nginx-module" class="headerlink" title="nginx安装第三方模块set-misc-nginx-module"></a>nginx安装第三方模块set-misc-nginx-module</h2><ol>
+<li>下载对应版本的源码；</li>
+<li>下载需要的模块代码(因为这个模块依赖ngx_devel_kit，所以ngx_devel_kit也要下载)；</li>
+<li>使用./configure配置时加上 –add-module=/path/to/set-misc-nginx-module –add-module=/path/to/ngx_devel_kit (这里的/path/to请替换自己的模块路径)</li>
+<li>make(不要执行make install)</li>
+<li>然后把nginx替换掉</li>
+</ol>
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/10/30/Java运行时数据区域/" itemprop="url">
-              
-                <span itemprop="name">Java运行时数据区域</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-10-30T11:50:19+08:00"
-              content="2017-10-30" >
-          10-30
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
     </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/nginx/" rel="tag"># nginx</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/14/CentOS7安装Docker/" rel="next" title="CentOS7安装Docker">
+                <i class="fa fa-chevron-left"></i> CentOS7安装Docker
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
-
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/archives/2017/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/archives/2017/">1</a><span class="page-number current">2</span>
-  </nav>
+  </article>
 
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -427,6 +429,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -447,8 +453,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -528,6 +543,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#nginx-按日期切割日志"><span class="nav-number">1.</span> <span class="nav-text">nginx 按日期切割日志</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用linux的logrotate"><span class="nav-number">1.1.</span> <span class="nav-text">使用linux的logrotate</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用nginx第三方模块"><span class="nav-number">1.2.</span> <span class="nav-text">使用nginx第三方模块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#nginx安装第三方模块set-misc-nginx-module"><span class="nav-number">1.3.</span> <span class="nav-text">nginx安装第三方模块set-misc-nginx-module</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -662,6 +693,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
 
   
 
